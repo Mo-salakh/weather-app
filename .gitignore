@@ -8,6 +8,10 @@
 # testing
 /coverage
 
+# API-key
+config.jsx
+
+
 # production
 /build
 
