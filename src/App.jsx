@@ -70,7 +70,7 @@ function App() {
   };
 
   const getLatLon = (cityName) => {
-    fetch(`http://api.openweathermap.org/geo/1.0/direct?appid=${API_KEY}&q=${cityName}&limit=1`)
+    fetch(`https://api.openweathermap.org/geo/1.0/direct?appid=${API_KEY}&q=${cityName}&limit=1`)
       .then(response => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -92,7 +92,7 @@ function App() {
   };
 
   const getAirData = (lat, lon) => {
-    fetch(`http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`)
+    fetch(`https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`)
     .then(response => response.json())
     .then(data => setAirQuality(data.list[0].main))
     .catch(err => console.error(err.name, err.stack))
