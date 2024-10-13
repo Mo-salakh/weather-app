@@ -66,13 +66,11 @@ function WeatherForm(props) {
         if (airQuality.aqi >= 5) return 'Опасный';
     }
 
-    console.log(airQuality.aqi);
-
     return (
         <div className="weather-f_content">
             <div className='weather_nav'>
                 <img src={mapI  } alt="location-icon" />
-                <input type="text" placeholder='type the city name' value={value} onChange={(e) => setValue(e.target.value)} onKeyDown={e => e.key === 'Enter' ? handleClick() : null} />
+                <input type="text" placeholder='Название города' value={value} onChange={(e) => setValue(e.target.value)} onKeyDown={e => e.key === 'Enter' ? handleClick() : null} />
                 <button className='btn-search' onClick={handleClick}><img src={searchI} alt="search-icon" /></button>
             </div>
             <div className="weather_sun">

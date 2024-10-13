@@ -7,6 +7,7 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [weatherData, setWeatherData] = useState(null);
   const [airQuality, setAirQuality ] = useState(null);
+  const [weatherDaysData, setWetherDaysData] = useState([])
 
   useEffect(() => {
     const fetchWeatherByLocation = () => {
@@ -15,6 +16,7 @@ function App() {
           const { latitude, longitude } = position.coords;
           fetchWeatherData(latitude, longitude);
           getAirData(latitude, longitude);
+          getDaysData(latitude, longitude);
         },
         (error) => {
           console.error("Error getting location:", error);
@@ -26,6 +28,17 @@ function App() {
     fetchWeatherByLocation();
 
   }, []);
+
+  function getDaysData(lat, lon) {
+    fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`)
+    .then(response => response.json())
+    .then(data => {
+      const dailyData = data.list.filter((item, index) => {
+        return index > 7 && (index - 8) % 8 === 0;
+      });
+      return setWetherDaysData(dailyData);
+    })
+  }
 
   const fetchWeatherData = (lat, lon) => {
     fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`)
@@ -70,6 +83,7 @@ function App() {
           const lon = data[0].lon;
           fetchWeatherData(lat, lon);
           getAirData(lat, lon);
+          getDaysData(lat, lon);
         }
       })
       .catch(error => {
@@ -91,7 +105,7 @@ function App() {
 
   return (
     <div className="App">
-      <WeatherInfo weatherData={weatherData} />
+      <WeatherInfo weatherData={weatherData} weatherDaysData={weatherDaysData} />
       <WeatherForm getCurrentCityWeather={getLatLon} weatherData={weatherData} airQuality={airQuality} />
     </div>
   );

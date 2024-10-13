@@ -15,8 +15,11 @@ body {
 }
 
 .App {
-  display: grid;
-  grid-template-columns: 3fr 1fr;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 100px;
+  /* grid-template-columns: repeat(auto-fill, minmax(800px, 1fr)); */
 }
 
 .weather_content {
@@ -27,6 +30,9 @@ body {
 .weather_icon {
   height: 80px;
   margin-bottom: 25px;
+  animation:  moveCloud 60s linear infinite,
+              floatCloud 6s ease-in-out infinite;
+
 }
 
 .weather_title {
@@ -99,7 +105,7 @@ body {
 }
 
 .weather_item {
-  width: 110px;
+  width: 140px;
   height: 200px;
   display: flex;
   flex-direction: column;
@@ -109,6 +115,12 @@ body {
   padding: 16px 27px;
   border: .5px solid rgba(255, 255, 255, 1);
   border-radius: 11px;
+  align-items: center;
+}
+
+.weather_item img {
+  width: 40px;
+  height: 36px;
 }
 
 
@@ -306,4 +318,23 @@ hr ~ span {
 }
 @keyframes l7 {
   to {transform:scale(1.8);opacity:0}
+}
+
+
+@keyframes moveCloud {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes floatCloud {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
 }
