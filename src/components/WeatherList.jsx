@@ -7,6 +7,7 @@ import thunderstormIcon from '../img/thunderstorm.png';
 import snowIcon from '../img/snow-light.png';
 import hazeIcon from '../img/haze.png';
 import fogIcon from '../img/fog.png';
+
 // import arrowI from '../img/arrow.png';
 
 export default function WeatherList(props) {

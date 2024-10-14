@@ -40,6 +40,11 @@ import fogIconNight from '../img/fog-night.png';
 import { useEffect, useState } from 'react';
 
 
+import mistIconDay from '../img/mist-day.png';
+import mistIconNight from '../img/mist-night.png';
+
+
+
 export default function WeatherMain(props) {
 
     const { weatherData, isDay } = props
@@ -87,6 +92,9 @@ export default function WeatherMain(props) {
                 return isDay ? thunderstormIconDay : thunderstormIconNight;
             }
       
+          case 'Mist': 
+            return isDay ? mistIconDay : mistIconNight;
+
           case 'Snow':
             switch(description.toLowerCase()) {
               case 'snow':
@@ -115,6 +123,7 @@ export default function WeatherMain(props) {
           setCurrentWeatherIcon(icon);
         }
       }, [isDay, citySky])
+
 
     return (
         <div className="weather_main">

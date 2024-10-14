@@ -5,7 +5,7 @@ import aitI from '../img/circle.png'
 import { useEffect, useState } from 'react'
 
 function WeatherForm(props) {
-    const { getCurrentCityWeather, weatherData, airQuality} = props
+    const { getCurrentCityWeather, weatherData} = props
     const [value, setValue] = useState('')
     const currentData = weatherData;
     const { citySunRise, citySunSet, timezone, visibility, name } = currentData
@@ -63,13 +63,13 @@ function WeatherForm(props) {
         return "Очень плохая";
     }
 
-    function airQualityRating() {
-        if (airQuality.aqi <= 1) return 'Хороший';
-        if (airQuality.aqi === 2) return 'Умеренный';
-        if (airQuality.aqi === 3) return 'пагубный';
-        if (airQuality.aqi === 4) return 'Вредный';
-        if (airQuality.aqi >= 5) return 'Опасный';
-    }
+    // function airQualityRating() {
+    //     if (airQuality.aqi <= 1) return 'Хороший';
+    //     if (airQuality.aqi === 2) return 'Умеренный';
+    //     if (airQuality.aqi === 3) return 'пагубный';
+    //     if (airQuality.aqi === 4) return 'Вредный';
+    //     if (airQuality.aqi >= 5) return 'Опасный';
+    // }
 
     return (
         <div className="weather-f_content">
@@ -116,14 +116,15 @@ function WeatherForm(props) {
                     <h5 className='air_title'>Качество воздуха</h5>
                     <img src={aitI} alt="air-info-i" className='air_img' />
                     <dl>
-                        <dd>{airQuality.aqi}/5</dd>
-                        <dt>{airQualityRating()}</dt>
+                        <dd>1/5</dd>
+                        <dt>хороший</dt>
                     </dl>
                 </div>
                 <div className="air_info">
                     <h5 className='air_title'>Видимость</h5>
                     <img src={aitI} alt="air-info-i" className='air_img' />
                     <dl>
+                        <dd>{visibility / 1000} km</dd>
                         <dt>{categorizeVisibility()}</dt>
                     </dl>
                 </div>

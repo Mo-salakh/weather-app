@@ -11,7 +11,7 @@ function WeatherInfo(props) {
   const [isDay, setDay] = useState(true);
   const { dt, timezone } = weatherData;
 
-
+  
 
   useEffect(() => {
     const currentTime = new Date(dt * 1000 + timezone * 1000);
@@ -44,9 +44,8 @@ function WeatherInfo(props) {
       }
     }
   }, [formattedTime]);
-  
 
-  if (!weatherData) {
+  if (!weatherData || !weatherDaysData) {
     return (
       <h1 className="weather_title" style={{'marginLeft': '0.9375rem','fontSize': '48px',transform: 'translate(50%, -50%}' }}>
         Загрузка...

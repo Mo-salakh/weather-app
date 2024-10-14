@@ -6,7 +6,7 @@ import { API_KEY } from "./config";
 function App() {
   const [loading, setLoading] = useState(true);
   const [weatherData, setWeatherData] = useState(null);
-  const [airQuality, setAirQuality ] = useState(null);
+  // const [airQuality, setAirQuality ] = useState(null);
   const [weatherDaysData, setWetherDaysData] = useState([])
 
   useEffect(() => {
@@ -15,7 +15,7 @@ function App() {
         (position) => {
           const { latitude, longitude } = position.coords;
           fetchWeatherData(latitude, longitude);
-          getAirData(latitude, longitude);
+          // getAirData(latitude, longitude);
           getDaysData(latitude, longitude);
         },
         (error) => {
@@ -24,9 +24,7 @@ function App() {
         }
       );
     };
-    
     fetchWeatherByLocation();
-
   }, []);
 
   function getDaysData(lat, lon) {
@@ -61,12 +59,13 @@ function App() {
           timezone: data.timezone,
           visibility: data.visibility
         })
-        setLoading(false);
       })
       .catch(error => {
         console.error('There has been a problem with your fetch operation:', error);
-        setLoading(false);
-      });
+      })
+      .finally(() => {
+        setLoading(false)
+      })
   };
 
   const getLatLon = (cityName) => {
@@ -82,7 +81,7 @@ function App() {
           const lat = data[0].lat; 
           const lon = data[0].lon;
           fetchWeatherData(lat, lon);
-          getAirData(lat, lon);
+          // getAirData(lat, lon);
           getDaysData(lat, lon);
         }
       })
@@ -91,12 +90,18 @@ function App() {
       });
   };
 
-  const getAirData = (lat, lon) => {
-    fetch(`https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`)
-    .then(response => response.json())
-    .then(data => setAirQuality(data.list[0].main))
-    .catch(err => console.error(err.name, err.stack))
-  }
+  // const getAirData = (lat, lon) => {
+  //   fetch(`https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`)
+  //   .then(response => {
+  //     response.json()
+  //   })
+  //   .then(data => {
+  //     setAirQuality(data.list[0].main)
+  //     setLoading(false)
+  //   } 
+  //   )
+  //   .catch(err => console.error(err.name, err.stack))
+  // }
 
 
   if (loading) {
@@ -106,7 +111,7 @@ function App() {
   return (
     <div className="App">
       <WeatherInfo weatherData={weatherData} weatherDaysData={weatherDaysData} />
-      <WeatherForm getCurrentCityWeather={getLatLon} weatherData={weatherData} airQuality={airQuality} />
+      <WeatherForm getCurrentCityWeather={getLatLon} weatherData={weatherData} /*>airQuality={airQuality}*/ />
     </div>
   );
 
