@@ -50,7 +50,7 @@ function App() {
       })
       .then(data => {
         setWeatherData({
-          nameCity: data.name,
+          name: data.name,
           cityId: data.id,
           cityMain: data.main,
           citySky: data.weather,

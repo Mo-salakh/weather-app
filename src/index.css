@@ -17,13 +17,13 @@ body {
 .App {
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
   gap: 100px;
   /* grid-template-columns: repeat(auto-fill, minmax(800px, 1fr)); */
 }
 
 .weather_content {
   padding: 4.0625rem 0 4.0625rem 5rem;
+  position: relative;
   color: rgba(255, 255, 255, 1);
 }
 
@@ -93,16 +93,19 @@ body {
   display: flex;
   gap: 15px;
   align-items: center;
-}
+} 
+
+
 
 .weather_list {
   font-family: 'Overpass', sans-serif;
   font-size: 1.5rem;
   line-height: 1.875rem;
   display: flex;
-  flex-wrap: wrap;
   gap: 55px;
+  flex-wrap: wrap;
 }
+
 
 .weather_item {
   width: 140px;
@@ -287,7 +290,7 @@ hr ~ span {
 .air_info dl {
   position: absolute;
   bottom: 15px;
-  left: 30%;
+  left: 29%;
 }
 
 
@@ -336,5 +339,117 @@ hr ~ span {
   }
   50% {
     transform: translateY(10px);
+  }
+}
+
+
+
+@media screen and (max-width:1320px) {
+  hr ~ span {
+    top: 31.2rem;
+  }
+
+  .weather_content {
+    padding: 3.5rem 0 3.5rem 2.5rem;
+  }
+
+  .App {
+    flex-direction: column;
+    gap: 0;
+  }
+  .weather_list {
+    margin-right: 3rem;
+  }
+  .weather-f_content {
+    padding-bottom: 2rem;
+  }
+  .weather_nav {
+    justify-content: center;
+  }
+  .weather_sun {
+    margin-top: 70px;
+  }
+}
+
+@media screen and (max-width:700px) {
+
+  hr ~ span {
+    bottom: 26.8rem;
+    right: 1.5rem;
+    top: inherit;
+  }
+
+  .weather_content {
+    padding: 3rem 0 3rem 2rem;
+  }
+
+  .weather_title {
+    font-size: 5rem;
+    margin-bottom: 1rem;
+  }
+  .weather_date p {
+    font-size: 2rem;
+  }
+  .weather_date pre {
+    margin-top: .3rem;
+    font-size: 1.3rem;
+  }
+  .weather_info {
+    gap: 1rem;
+    flex-direction: column;
+  }
+
+  .weather_list {
+    margin-right: 2rem;
+    gap: 1.5rem;
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    white-space: nowrap;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE and Edge */
+  }
+
+  .weather_list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .weather_card:hover,
+  .weather_card:focus {
+    animation: move 0 0 0;
+  }
+
+  .weather_nav {
+    flex-direction: column;
+    position: relative;
+    align-items: normal;
+  }
+
+  .location-i {
+    position: absolute;
+    top: .3rem;
+    left: -.5rem;
+  }
+
+  .btn-search {
+    margin-top: 1rem;
+  }
+
+  .weather_sun {
+    flex-direction: column;
+  }
+  .weather_time {
+    width: 95%;
+    height: auto;
+    justify-content: center;
+    flex-direction: row;
+    gap: 1rem;
+  }
+  .air_title {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+  .weather_air {
+    flex-direction: column;
+    gap: 45px;
   }
 }

@@ -6,30 +6,31 @@ import WeatherAirInfo from './WeatherAirInfo';
 
 function WeatherInfo(props) {
   const { weatherData, weatherDaysData } = props;
-  const currentData = weatherData;
-
-  const [time, setTime] = useState(null)
+  const [time, setTime] = useState(null);
+  const [date, setDate] = useState(null);
   const [isDay, setDay] = useState(true);
+  const { dt, timezone } = weatherData;
 
 
 
-
-
-  // ------------------ UseEffects >>>
-
-  // ОБНОВЛЕНИЕ ВРЕМЕНИ ЧЕРЕЗ 1 МИНУТУ
   useEffect(() => {
-    const updateLocalTime = () => {
-        const currentTime = new Date();
-        setTime(currentTime);
-    };
-    updateLocalTime();
-    setInterval(updateLocalTime, 60000);
-  }, [weatherData]);
+    const currentTime = new Date(dt * 1000 + timezone * 1000);
+    const currentDate = new Date(dt * 1000);
+    setTime(currentTime);
+    setDate(currentDate);
+  }, [dt, timezone])
+
+
+
   const formattedTime = time ? new Date(time).toLocaleTimeString('ru-RU', {
     hour: '2-digit',
     minute: '2-digit',
+    timeZone: 'UTC'
   }) : '';
+  
+  const formattedDate = date ? new Date(date).toLocaleDateString('ru-Ru', {
+    timeZone: 'UTC'
+  }) : ''
 
   //ЯВЛЯЕТСЯ ЛИ СЕЙЧАС ДЕНЬ ИЛИ НОЧЬ
   useEffect(() => {
@@ -45,9 +46,7 @@ function WeatherInfo(props) {
   }, [formattedTime]);
   
 
-  // ------------------ <<< useEffects
-
-  if (!currentData) {
+  if (!weatherData) {
     return (
       <h1 className="weather_title" style={{'marginLeft': '0.9375rem','fontSize': '48px',transform: 'translate(50%, -50%}' }}>
         Загрузка...
@@ -55,13 +54,16 @@ function WeatherInfo(props) {
     );
   }
 
+  
+
   return (
     <div className="weather_content">
       
       <WeatherMain weatherData={weatherData} isDay={isDay} />
-      <WeatherDate time={time} />
+      <WeatherDate formattedTime={formattedTime} formattedDate={formattedDate} />
       <WeatherAirInfo weatherData={weatherData} />
       <WeatherList weatherDaysData={weatherDaysData} />
+      
     </div>
   );
 }

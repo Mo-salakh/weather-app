@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import clearIcon from '../img/clear-day.png';
 import cloudsIcon from '../img/clouds.png';
 import rainIcon from '../img/rain-light.png';
@@ -7,11 +7,14 @@ import thunderstormIcon from '../img/thunderstorm.png';
 import snowIcon from '../img/snow-light.png';
 import hazeIcon from '../img/haze.png';
 import fogIcon from '../img/fog.png';
+// import arrowI from '../img/arrow.png';
 
 export default function WeatherList(props) {
 
     const { weatherDaysData } = props;
     const [icons, setIcons] = useState([])
+
+    let weahterRef = useRef(null)
 
     const getIcon = useCallback((sky) => {
         switch (sky) {
@@ -44,21 +47,24 @@ export default function WeatherList(props) {
         setIcons(icons)
     }, [weatherDaysData, getIcon])
 
-
+    
     const daysList = ['Воскресенье','Понедельник','Вторник','Среда','Четверг','Пятница','Суббота',];
-
+    
     function getDayName(day , index) {
-        const dayIndex = new Date(day).getDay()
-        return daysList[dayIndex]
+      const dayIndex = new Date(day).getDay()
+      return daysList[dayIndex]
     }
+    
+
 
     return (
+      <>
         <ul className="weather_list">
         {weatherDaysData.map((day, index) => {
           const dayName = index === 0 ? 'Завтра' : getDayName(day.dt * 1000);
 
           return (
-            <li className="weather_item" key={index}>
+            <li className="weather_item" key={index} ref={el => (weahterRef.current = el)} >
             <p>
               {day.main.temp}<sup>°c</sup>
             </p>
@@ -67,6 +73,8 @@ export default function WeatherList(props) {
             </li>
           )
         } )}
-      </ul>
+        
+        </ul>
+      </>
     )
 }

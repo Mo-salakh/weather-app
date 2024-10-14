@@ -2,14 +2,18 @@ import mapI from '../img/map-i.png'
 import searchI from '../img/search-i.png'
 import timeI from '../img/time-i.png'
 import aitI from '../img/circle.png'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 function WeatherForm(props) {
     const { getCurrentCityWeather, weatherData, airQuality} = props
     const [value, setValue] = useState('')
     const currentData = weatherData;
-    const { citySunRise, citySunSet, timezone, visibility } = currentData
-    
+    const { citySunRise, citySunSet, timezone, visibility, name } = currentData
+
+    useEffect(() => {
+        setValue(name)
+    }, [name])
+
     if(!currentData) {
         return (
             <h1 className="weather_title" style={{'marginLeft': '0.9375rem','fontSize': '48px',transform: 'translate(50%, -50%}' }}>
@@ -30,8 +34,9 @@ function WeatherForm(props) {
         timeZone: 'UTC'
     });
     
+   
+
     function handleClick() {
-        setValue('')
         getCurrentCityWeather(value)
     }
 
@@ -69,7 +74,7 @@ function WeatherForm(props) {
     return (
         <div className="weather-f_content">
             <div className='weather_nav'>
-                <img src={mapI  } alt="location-icon" />
+                <img src={mapI} alt="location-icon" className='location-i' />
                 <input type="text" placeholder='Название города' value={value} onChange={(e) => setValue(e.target.value)} onKeyDown={e => e.key === 'Enter' ? handleClick() : null} />
                 <button className='btn-search' onClick={handleClick}><img src={searchI} alt="search-icon" /></button>
             </div>
